@@ -115,6 +115,12 @@ a:visited {
 	top: 0;
 	width: 100%;
 }
+.cd-intro-content {
+	position: relative;
+	/* z-index: 0; */
+	width: 100%;
+	height: 100vh;
+}
 /* ****************************** */
 /* text design*/
 #section1 {
@@ -128,7 +134,7 @@ a:visited {
 .cd-intro-content h1 {
 	color: white;
 	font-size: 60px;
-	margin-top: 300px;
+	/* margin-top: 300px; */
 }
 .cd-intro-content p {
 	color: #9ac6c5;
@@ -724,7 +730,7 @@ a:visited {
 	}
 	.cd-intro-content h1 {
 		font-size: 30px;
-		margin-top: 150px;
+		/* margin-top: 150px; */
 	}
 	.cd-intro-content p {
 		font-size: 16px;

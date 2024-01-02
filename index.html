@@ -27,7 +27,7 @@
                 <a href="#experience">Experience</a>
                 <a href="#contact">Contact</a>
             </div>
-            <a href="/other assets/Shun Lae Nay Yee_CV.pdf" download class="resume"><i class="fa-solid fa-download"></i>Resume</a>
+            <a target="_blank" href="./other assets/Shun Lae Nay Yee_CV.pdf" download class="resume"><i class="fa-solid fa-download"></i>Resume</a>
         </div>
         <div class="nav_bar_ph">
             <div class="hamburger_menu_container ">
@@ -37,6 +37,8 @@
 
             </div>
         </div>
+        <!-- can click menu in mobile view without opening menu -->
+        <!-- require ux improvement in mobile view -->
         <div class="overlayMenu">
                 <ul>
                     <li><a href="#about">About</a></li>
@@ -48,7 +50,15 @@
         </div>
         <section class="cd-intro" id="section1">
             <div class="cd-intro-content bouncy">
-                <div class="flex">
+                <!--  margin-top is not the best solution to center-->
+                <!-- position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%); -->
+                <div style="position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%) translateY(-50%);width: max-content;">
                     <h1>SHUN LAE NAY YEE</h1>
                     <p>Software Engineer, Web Developer</p>
                     <div class="action-wrapper">
@@ -95,7 +105,7 @@
                     <div>C++</div>
                     <div>Others</div>
                 </div>
-                <a href="/other assets/Shun Lae Nay Yee_CV.pdf" class="learn_more">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
+                <a href="./other assets/Shun Lae Nay Yee_CV.pdf" class="learn_more">Learn More <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
             
         </div>
@@ -260,109 +270,10 @@
     </div>
 
 
-    <script src="/js/hamburgermenu.js"></script>
+    <script src="./js/hamburgermenu.js"></script>
     <!-- script -->
-    <script src="/js/dropdown.js"></script>
+    <script src="./js/dropdown.js"></script>
+    <script defer src="./js/backgound_galaxy.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script>
-        var WIDTH, HEIGHT, canvas, con, g;
-        var pxs = [];
-        var rint = 70;
-        $(document).ready(function() {
-    
-    var windowSize = function() {
-        WIDTH = $('.galaxy-wrapper').innerWidth();
-        HEIGHT = $('.galaxy-wrapper').innerHeight();
-        canvas = $('#galaxy');
-        canvas.attr('width', WIDTH).attr('height', HEIGHT);
-    };
-    
-    windowSize();
-    
-    $(window).resize(function() {
-        windowSize();
-    });
-    
-    con = canvas[0].getContext('2d');
-    for (var i = 0; i < 100; i++) {
-        pxs[i] = new Circle();
-        pxs[i].reset();
-    }
-    requestAnimationFrame(draw);
-    });
-    
-    function draw() {
-    con.clearRect(0, 0, WIDTH, HEIGHT);
-    con.globalCompositeOperation = "lighter";
-    for (var i = 0; i < pxs.length; i++) {
-        pxs[i].fade();
-        pxs[i].move();
-        pxs[i].draw();
-    }
-    requestAnimationFrame(draw);
-    }
-    
-    function Circle() {
-    this.s = {
-        ttl: 15000,
-        xmax: 5,
-        ymax: 2,
-        rmax: 17,
-        rt: 1,
-        xdef: 960,
-        ydef: 540,
-        xdrift: 2,
-        ydrift: 2,
-        random: true,
-        blink: true
-    };
-    this.reset = function() {
-        this.x = (this.s.random ? WIDTH * Math.random() : this.s.xdef);
-        this.y = (this.s.random ? HEIGHT * Math.random() : this.s.ydef);
-        this.r = ((this.s.rmax - 1) * Math.random()) + 1;
-        this.dx = (Math.random() * this.s.xmax) * (Math.random() < 0.5 ? -1 : 1);
-        this.dy = (Math.random() * this.s.ymax) * (Math.random() < 0.5 ? -1 : 1);
-        this.hl = (this.s.ttl / rint) * (this.r / this.s.rmax);
-        this.rt = Math.random() * this.hl;
-        this.s.rt = Math.random() + 1;
-        this.stop = Math.random() * 0.2 + 0.4;
-        this.s.xdrift *= Math.random() * (Math.random() < 0.5 ? -1 : 1);
-        this.s.ydrift *= Math.random() * (Math.random() < 0.5 ? -1 : 1);
-    };
-    this.fade = function() {
-        this.rt += this.s.rt;
-    };
-    this.draw = function() {
-        if (this.s.blink && (this.rt <= 0 || this.rt >= this.hl)) this.s.rt = this.s.rt * -1;
-        else if (this.rt >= this.hl) this.reset();
-        var newo = 1 - (this.rt / this.hl);
-        con.beginPath();
-        con.arc(this.x, this.y, this.r, 0, Math.PI * 2, true);
-        con.closePath();
-        var cr = this.r * newo;
-        g = con.createRadialGradient(this.x, this.y, 0, this.x, this.y, (cr <= 0 ? 1 : cr));
-        g.addColorStop(0.0, 'rgba(193,254,254,' + newo + ')');
-        g.addColorStop(this.stop, 'rgba(193,254,254,' + (newo * 0.2) + ')');
-        g.addColorStop(1.0, 'rgba(193,254,254,0)');
-        con.fillStyle = g;
-        con.fill();
-    };
-    this.move = function() {
-        this.x += (this.rt / this.hl) * this.dx;
-        this.y += (this.rt / this.hl) * this.dy;
-        if (this.x > WIDTH || this.x < 0) this.dx *= -1;
-        if (this.y > HEIGHT || this.y < 0) this.dy *= -1;
-    };
-    this.getX = function() {
-        return this.x;
-    };
-    this.getY = function() {
-        return this.y;
-    };
-    };
-    
-    </script>
-
-
 </body>
 </html>
